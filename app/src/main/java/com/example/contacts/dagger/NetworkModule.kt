@@ -1,5 +1,6 @@
 package com.example.contacts.dagger
 
+import com.example.contacts.ApiCaller
 import com.example.contacts.Constants
 import com.example.contacts.network.Client
 import dagger.Module
@@ -21,4 +22,8 @@ class NetworkModule {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
             .create(Client::class.java)
+
+    @Provides
+    @Singleton
+    internal fun provideApiCaller(): ApiCaller = ApiCaller()
 }
