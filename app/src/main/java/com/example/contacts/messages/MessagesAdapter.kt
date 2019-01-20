@@ -38,7 +38,7 @@ class MessagesAdapter(private val messages: List<MessageData>) :
                 .buildRound(initial.toString(), randomColor)
         )
 
-        holder.mName.text = messages[position]!!.firstName + messages[position].lastName
+        holder.mName.text = "${messages[position]!!.firstName} ${messages[position].lastName}"
 
         holder.mNumber.text = messages[position].number
 
