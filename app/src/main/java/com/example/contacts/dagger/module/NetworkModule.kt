@@ -1,4 +1,4 @@
-package com.example.contacts.dagger
+package com.example.contacts.dagger.module
 
 import com.example.contacts.ApiCaller
 import com.example.contacts.Constants

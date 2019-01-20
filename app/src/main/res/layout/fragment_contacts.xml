@@ -1,52 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/refresh"
+    <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            tools:context=".contacts.ContactsFragment">
 
-        <FrameLayout
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_contacts_list"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:context=".contacts.ContactsFragment">
+                android:layout_height="wrap_content"/>
 
-            <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_contacts_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+    </FrameLayout>
 
-            <com.github.clans.fab.FloatingActionMenu
-                    android:id="@+id/float_menu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end|bottom"
-                    android:layout_marginEnd="12dp"
-                    android:layout_marginBottom="12dp"
-                    app:menu_colorNormal="@color/colorAccent"
-                    app:menu_colorPressed="@color/colorAccent"
-                    app:menu_icon="@drawable/ic_add">
-
-                <com.github.clans.fab.FloatingActionButton
-                        android:id="@+id/add_contacts"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:fab_size="mini"
-                        android:src="@drawable/ic_person_add"
-                        app:fab_colorNormal="@color/colorAccent"
-                        app:fab_label="Select Contacts From Phone"/>
-
-            </com.github.clans.fab.FloatingActionMenu>
-
-        </FrameLayout>
-
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
-
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

@@ -1,7 +1,11 @@
 package com.example.contacts.contacts
 
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.ContactsContract
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +16,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.amulyakhare.textdrawable.util.ColorGenerator
 import com.example.contacts.Contract
 import com.example.contacts.R
 import com.example.contacts.model.Contact
@@ -98,7 +103,6 @@ class ContactsFragment : Fragment(), Contract.ContactsView, ContactsAdapter.Item
                 mBottomSheetView.layout_message.error = "SMS Cannot Be Empty."
         }
 
-
     }
 
     private fun populateDefaultMessage() : String = "Hi, Your OTP is ${generateOTP()}."
@@ -143,5 +147,7 @@ class ContactsFragment : Fragment(), Contract.ContactsView, ContactsAdapter.Item
         this.presenter = presenter
     }
 
+    companion object {
+    }
 
 }

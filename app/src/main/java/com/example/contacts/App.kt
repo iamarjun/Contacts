@@ -3,7 +3,7 @@ package com.example.contacts
 import android.app.Application
 import com.example.contacts.dagger.AppComponent
 import com.example.contacts.dagger.DaggerAppComponent
-import com.example.contacts.dagger.NetworkModule
+import com.example.contacts.dagger.module.NetworkModule
 
 class App : Application() {
 
