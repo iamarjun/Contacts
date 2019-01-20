@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
-        when(item.itemId) {
+        when (item.itemId) {
             R.id.contacts -> viewpager.currentItem = 0
             R.id.messages -> viewpager.currentItem = 1
         }
