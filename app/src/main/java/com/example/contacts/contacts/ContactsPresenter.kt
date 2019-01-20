@@ -1,10 +1,14 @@
 package com.example.contacts.contacts
 
+import android.os.Handler
 import com.example.contacts.ApiCaller
 import com.example.contacts.App
 import com.example.contacts.Contract
 import com.example.contacts.model.Contacts
+import com.example.contacts.room.MessageData
+import com.example.contacts.room.MessageDatabase
 import com.example.contacts.utils.CallBack
+import com.example.contacts.utils.DbWorkerThread
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -14,6 +18,8 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.URL
 import java.net.URLEncoder
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 
 
@@ -23,8 +29,11 @@ class ContactsPresenter(private val view: Contract.ContactsView) : Contract.Cont
     internal lateinit var apiCaller: ApiCaller
 
     init {
-        App.appComponent!!.inject(this)
+        App.appComponent.inject(this)
     }
+
+    private lateinit var mDbWorkerThread: DbWorkerThread
+    private var mDb : MessageDatabase? = null
 
     private val saveData: Disposable
         get() = Single.fromCallable<Unit> { this.sendSms() }
@@ -38,7 +47,7 @@ class ContactsPresenter(private val view: Contract.ContactsView) : Contract.Cont
         try {
             // Construct data
             val apiKey = "apikey=" + URLEncoder.encode("ynGkhwJRoEE-CsEc3XGbQZsMQtpywDBaiduXtu0iaT\t", "UTF-8")
-            val message = "&message=" + URLEncoder.encode("Hi", "UTF-8")
+            val message = "&otp=" + URLEncoder.encode("Hi", "UTF-8")
             val sender = "&sender=" + URLEncoder.encode("TXTLCL", "UTF-8")
             val numbers = "&numbers=" + URLEncoder.encode("918800147934", "UTF-8")
 
@@ -87,7 +96,7 @@ class ContactsPresenter(private val view: Contract.ContactsView) : Contract.Cont
     }
 
 
-    override fun sendSMS(number: String, message: String) {
+    override fun sendSMS(firstName: String, lastName: String, number: String, message: String) {
 
 //        val base64EncodedCredentials = "Basic " + Base64.encodeToString(
 //            (Constants.ACCOUNT_SID + ":" + Constants.AUTH_TOKEN).toByteArray(),
@@ -97,7 +106,7 @@ class ContactsPresenter(private val view: Contract.ContactsView) : Contract.Cont
 //        val data = mapOf(
 //            "From" to Constants.MY_NUMBER,
 //            "To" to number,
-//            "Body" to message
+//            "Body" to otp
 //        )
 //
 //        apiCaller.sendSMS(Constants.ACCOUNT_SID, base64EncodedCredentials, data, object : CallBack<ResponseBody> {
@@ -105,19 +114,36 @@ class ContactsPresenter(private val view: Contract.ContactsView) : Contract.Cont
 //                view.onSuccessSendingSMS(t)
 //            }
 //
-//            override fun onFailure(message: String) {
-//                view.onErrorSendingSMS(message)
+//            override fun onFailure(otp: String) {
+//                view.onErrorSendingSMS(otp)
 //            }
 //
 //        })
+
+        val formatter = SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
+        val date = Date()
+        val timeStamp = formatter.format(date).toString()
+
+        val task = Runnable { mDb?.messageDao()?.insert(MessageData(
+            firstName,
+            lastName,
+            number,
+            message,
+            timeStamp
+        )) }
+        mDbWorkerThread.postTask(task)
 
         saveData
     }
 
     override fun onAttach() {
+        mDb = MessageDatabase.getInstance(App.appContext)
+        mDbWorkerThread = DbWorkerThread("dbWorkerThread")
+        mDbWorkerThread.start()
     }
 
     override fun onDetach() {
+        MessageDatabase.destroyInstance()
     }
 
 }

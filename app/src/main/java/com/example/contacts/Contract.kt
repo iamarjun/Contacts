@@ -16,6 +16,6 @@ interface Contract {
 
     interface ContactsPresenter : BasePresenter {
         fun getAllContacts()
-        fun sendSMS(number: String, message: String)
+        fun sendSMS(firstName: String, lastName:String, number: String, message: String)
     }
 }

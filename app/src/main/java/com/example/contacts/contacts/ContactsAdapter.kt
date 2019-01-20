@@ -19,12 +19,10 @@ class ContactsAdapter(private val listener: ItemClickListener, private val conta
     }
 
     private var initial: Char? = null
-    private lateinit var mContext: Context
     private var colorHolder: ArrayList<Int> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactsViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.layout_contacts_item, parent, false)
-        mContext = parent.context
         return ContactsViewHolder(listener, view)
     }
 
