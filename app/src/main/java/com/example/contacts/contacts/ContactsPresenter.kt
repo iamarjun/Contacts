@@ -1,23 +1,19 @@
 package com.example.contacts.contacts
 
-import android.util.Base64
 import com.example.contacts.ApiCaller
 import com.example.contacts.App
 import com.example.contacts.Contract
 import com.example.contacts.model.Contacts
 import com.example.contacts.utils.CallBack
-import com.google.android.material.snackbar.Snackbar
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
-import okhttp3.FormBody
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import java.io.IOException
-import java.text.DateFormat
-import java.util.*
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.net.URL
+import java.net.URLEncoder
 import javax.inject.Inject
 
 
@@ -31,48 +27,42 @@ class ContactsPresenter(private val view: Contract.ContactsView) : Contract.Cont
     }
 
     private val saveData: Disposable
-        get() = Single.fromCallable<Unit> { this.loadData() }
+        get() = Single.fromCallable<Unit> { this.sendSms() }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnError { it.printStackTrace() }
             .subscribe(Consumer<Unit> { })
 
-    private fun loadData() {
-        val url = "https://api.twilio.com/2010-04-01/Accounts/ACdd6dd112720aadbd4d20782555f0923c/SMS/Messages"
-        val base64EncodedCredentials = "Basic " + Base64.encodeToString(
-            ("ACdd6dd112720aadbd4d20782555f0923c:cdf7cf1b6cc8a2ab0e221013c4a7d397").toByteArray(),
-            Base64.NO_WRAP
-        )
 
-        val body = FormBody.Builder()
-            .add("From", "+16092241426")
-            .add("To", "+918800402310")
-            .add("Body", "Hi")
-            .build()
-
-        val request = Request.Builder()
-            .url(url)
-            .post(body)
-            .header("Authorization", base64EncodedCredentials)
-            .build()
+    fun sendSms(): String {
         try {
-            val client = OkHttpClient()
-            val response = client.newCall(request).execute()
+            // Construct data
+            val apiKey = "apikey=" + URLEncoder.encode("ynGkhwJRoEE-CsEc3XGbQZsMQtpywDBaiduXtu0iaT\t", "UTF-8")
+            val message = "&message=" + URLEncoder.encode("Hi", "UTF-8")
+            val sender = "&sender=" + URLEncoder.encode("TXTLCL", "UTF-8")
+            val numbers = "&numbers=" + URLEncoder.encode("918800147934", "UTF-8")
 
-            if (response.isSuccessful)
-                view.onSuccessSendingSMS(response)
-            else
-                view.onErrorSendingSMS(response.message())
+            // Send data
+            val data = "https://api.textlocal.in/send/?$apiKey$numbers$message$sender"
+            val url = URL(data)
+            val conn = url.openConnection()
+            conn.doOutput = true
 
+            // Get the response
+            val rd = BufferedReader(InputStreamReader(conn.getInputStream()))
+            val line: String
+            var sResult = ""
+            line = rd.readLine()
+            while ((line) != null) {
+                // Process line...
+                sResult = "$sResult$line "
+            }
+            rd.close()
 
-//            DatabaseHelper.writeMessage(
-//                activity.getApplicationContext(),
-//                Message(this.contact, mOtpCode, currentDateTime)
-//            )
-//            Log.d(TAG, "sendSms: " + response.body()!!.string())
-
-        } catch (e: IOException) {
-            e.printStackTrace()
+            return sResult
+        } catch (e: Exception) {
+            println("Error SMS $e")
+            return "Error $e"
         }
 
     }
@@ -120,8 +110,6 @@ class ContactsPresenter(private val view: Contract.ContactsView) : Contract.Cont
 //            }
 //
 //        })
-
-        val currentDateTime = DateFormat.getDateTimeInstance().format(Date())
 
         saveData
     }

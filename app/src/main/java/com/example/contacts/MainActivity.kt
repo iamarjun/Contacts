@@ -3,6 +3,7 @@ package com.example.contacts
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.ViewPager
 import com.example.contacts.contacts.ContactsFragment
 import com.example.contacts.messages.MessagesFragment
@@ -16,6 +17,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+        toolbar.title = "Contacts"
+        toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.white))
 
         bottom_navigation.setOnNavigationItemSelectedListener(this)
         viewpager.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {

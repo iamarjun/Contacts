@@ -3,7 +3,6 @@ package com.example.contacts.dagger
 import com.example.contacts.ApiCaller
 import com.example.contacts.Constants
 import com.example.contacts.network.Client
-import com.example.contacts.network.Twilio
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -40,24 +39,14 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    internal fun provideRetrofit(): Client =
+    internal fun provideRetrofit(okHttpClient: OkHttpClient): Client =
         Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .client(okHttpClient)
             .build()
             .create(Client::class.java)
-
-    @Provides
-    @Singleton
-    internal fun provideRetrofitSMS(okayHttpClient: OkHttpClient): Twilio =
-        Retrofit.Builder()
-            .baseUrl(Constants.BASE_URL_SMS)
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .client(okayHttpClient)
-            .build()
-            .create(Twilio::class.java)
 
     @Provides
     @Singleton
