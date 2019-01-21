@@ -18,6 +18,7 @@ import com.example.contacts.model.Contacts
 import com.example.contacts.model.SmsResponse
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_contacts.view.*
 import kotlinx.android.synthetic.main.layout_contact_details.view.*
 import java.util.*
@@ -31,6 +32,58 @@ class ContactsFragment : Fragment(), Contract.ContactsView, ContactsAdapter.Item
     private lateinit var presenter: Contract.ContactsPresenter
     private lateinit var mBottomSheetDialog: BottomSheetDialog
     private lateinit var mContactsList: List<Contact?>
+
+    private val dummyResponse = "{\n" +
+            "  \"contacts\": [\n" +
+            "    {\n" +
+            "      \"first_name\": \"Arjun\",\n" +
+            "      \"last_name\": \"Manoj\",\n" +
+            "      \"contact_number\": \"+918800147934\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"first_name\": \"Aviral\",\n" +
+            "      \"last_name\": \"Bajpai\",\n" +
+            "      \"contact_number\": \"+918447573965\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"first_name\": \"Sandeep\",\n" +
+            "      \"last_name\": \"Sharma\",\n" +
+            "      \"contact_number\": \"+917838329224\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"first_name\": \"Chitwan\",\n" +
+            "      \"last_name\": \"Kasana\",\n" +
+            "      \"contact_number\": \"+917906006612\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"first_name\": \"Adit\",\n" +
+            "      \"last_name\": \"Mohan\",\n" +
+            "      \"contact_number\": \"+919419250241\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"first_name\": \"Keshav\",\n" +
+            "      \"last_name\": \"Sharma\",\n" +
+            "      \"contact_number\": \"+919871905114\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"first_name\": \"Mukul\",\n" +
+            "      \"last_name\": \"Sharma\",\n" +
+            "      \"contact_number\": \"+919711974461\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"first_name\": \"Vivek\",\n" +
+            "      \"last_name\": \"Sharma\",\n" +
+            "      \"contact_number\": \"+918851836485\"\n" +
+            "    },\n" +
+            "    null,\n" +
+            "    {\n" +
+            "      \"first_name\": \"Kisan\",\n" +
+            "      \"last_name\": \"Network\",\n" +
+            "      \"contact_number\": \"+919971792703\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}"
+
 
     init {
         setPresenter(ContactsPresenter(this))
@@ -137,6 +190,10 @@ class ContactsFragment : Fragment(), Contract.ContactsView, ContactsAdapter.Item
         mView.refresh.isRefreshing = false
         Snackbar.make(mView, message, Snackbar.LENGTH_SHORT)
             .show()
+
+        //in case on api failure
+        mView.recycler_contacts_list.adapter =
+                ContactsAdapter(this, Gson().fromJson(dummyResponse, Contacts::class.java).contacts)
     }
 
     override fun onSuccessSendingSMS(t: SmsResponse) {

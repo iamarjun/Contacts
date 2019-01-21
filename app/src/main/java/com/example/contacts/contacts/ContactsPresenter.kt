@@ -26,7 +26,6 @@ class ContactsPresenter(private val view: Contract.ContactsView) : Contract.Cont
     private lateinit var mDbWorkerThread: DbWorkerThread
     private var mDb: MessageDatabase? = null
 
-
     override fun getAllContacts() {
 
         view.setProgressBarVisibility(true)
