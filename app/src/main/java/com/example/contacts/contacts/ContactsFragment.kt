@@ -140,7 +140,7 @@ class ContactsFragment : Fragment(), Contract.ContactsView, ContactsAdapter.Item
     }
 
     override fun onSuccessSendingSMS(t: SmsResponse) {
-        Snackbar.make(mView, t.message.toString(), Snackbar.LENGTH_SHORT)
+        Snackbar.make(mView, t.status.toString(), Snackbar.LENGTH_SHORT)
             .show()
     }
 
