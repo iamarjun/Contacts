@@ -15,11 +15,11 @@ import com.example.contacts.Contract
 import com.example.contacts.R
 import com.example.contacts.model.Contact
 import com.example.contacts.model.Contacts
+import com.example.contacts.model.SmsResponse
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_contacts.view.*
 import kotlinx.android.synthetic.main.layout_contact_details.view.*
-import okhttp3.Response
 import java.util.*
 
 
@@ -104,6 +104,7 @@ class ContactsFragment : Fragment(), Contract.ContactsView, ContactsAdapter.Item
                     mBottomSheetView.number.text.toString(),
                     mBottomSheetView.message.text.toString()
                 )
+                mBottomSheetDialog.dismiss()
             } else
                 mBottomSheetView.layout_message.error = "SMS Cannot Be Empty."
         }
@@ -138,8 +139,8 @@ class ContactsFragment : Fragment(), Contract.ContactsView, ContactsAdapter.Item
             .show()
     }
 
-    override fun onSuccessSendingSMS(t: Response) {
-        Snackbar.make(mView, t.message(), Snackbar.LENGTH_SHORT)
+    override fun onSuccessSendingSMS(t: SmsResponse) {
+        Snackbar.make(mView, t.message.toString(), Snackbar.LENGTH_SHORT)
             .show()
     }
 
