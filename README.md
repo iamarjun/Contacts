@@ -1,5 +1,5 @@
 # Contacts
-A simple comtacts app with OTP sending functionality using SMS API from TextLocal (https://www.textlocal.in/).
+A simple contacts app with OTP sending functionality using SMS API from TextLocal (https://www.textlocal.in/).
 
 ## About Code Base
 * Entire code is written in pure kotlin.
