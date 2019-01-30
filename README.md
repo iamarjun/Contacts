@@ -14,15 +14,15 @@ A simple contacts app with OTP sending functionality using SMS API from TextLoca
 ### contacts
 This package contains the main fragment which contains the contacts list that gets display when app is opened along with the respective adapter and presenter classes.
 
-ContactsFragment: Serves the purpose of diplaying the contacts list data.
-ContactsAdapter: Adapter for the contacts list recycler view.
-ContactsPresenter: All the business logic goes here, data manipulation, callbacks from api calls, etc.
+* ContactsFragment: Serves the purpose of diplaying the contacts list data.
+* ContactsAdapter: Adapter for the contacts list recycler view.
+* ContactsPresenter: All the business logic goes here, data manipulation, callbacks from api calls, etc.
 
 ### messages
 This package contains the second fragment which holds the messages (otp in this case) sent to the user along with the respective adapter class and presenter class.
 
-MessagesFragment: Server the purpose of displaying the messages that are stored in the db.
-MessagesAdapter: Adpater for the list of messages send.
+* MessagesFragment: Server the purpose of displaying the messages that are stored in the db.
+* MessagesAdapter: Adpater for the list of messages send.
 
 ### dagger
 This package contains all the classes responsible for DI (dependency injection), also contains a sub-package called module which defines which components are to be injected. The AppComponent class is response for handling all the injection.
@@ -41,13 +41,13 @@ This package contains common utility classes which are often used around the who
 
 ### Classes in root directory
 And finally we have some classes in the root directory namely:
-ApiCaller: This hosts all the API calls in one place.
-ApiWrapper: Simple interfcae for making api calls.
-App: The main class which initiates everything, right from the launch of the app.
-BasePresenter and BaseView: Thes interface defines the base methods that are needed for the indivisual presenter and view classes that'll eventually inherit these.
-Contract: This interface holds all the presenter and view interfaces of the entire app.
-MainActivity: Just used as a staritng point.
-ViewPagerAdapter: This viewpager adapter defines the viewpager used in the bottom nav bar. 
+* ApiCaller: This hosts all the API calls in one place.
+* ApiWrapper: Simple interfcae for making api calls.
+* App: The main class which initiates everything, right from the launch of the app.
+* BasePresenter and BaseView: Thes interface defines the base methods that are needed for the indivisual presenter and view classes that'll eventually inherit these.
+* Contract: This interface holds all the presenter and view interfaces of the entire app.
+* MainActivity: Just used as a staritng point.
+* ViewPagerAdapter: This viewpager adapter defines the viewpager used in the bottom nav bar. 
 
 
 ## Open Source Libraries Used
