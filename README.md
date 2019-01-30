@@ -33,3 +33,6 @@ A simple contacts app with OTP sending functionality using SMS API from TextLoca
 ### Important Note
 * The Trial pack of TextLocal only supports 10 messages (i've used some, please use judicially) and sms only gets send provided the receiving number is not under DND.
 * As i'm using mockable.io for mockabing the contacts api, it has a some expiration time, in that case i'm using dummy response to populate the list.
+
+### APK 
+The APK file is in the path Contacts/app/build/outputs/apk/debug/
