@@ -75,7 +75,6 @@ class ContactsFragment : Fragment(), Contract.ContactsView, ContactsAdapter.Item
             "      \"last_name\": \"Sharma\",\n" +
             "      \"contact_number\": \"+918851836485\"\n" +
             "    },\n" +
-            "    null,\n" +
             "    {\n" +
             "      \"first_name\": \"Kisan\",\n" +
             "      \"last_name\": \"Network\",\n" +
