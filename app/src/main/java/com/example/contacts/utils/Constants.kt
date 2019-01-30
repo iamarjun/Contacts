@@ -1,4 +1,4 @@
-package com.example.contacts
+package com.example.contacts.utils
 
 object Constants {
     const val BASE_URL = "https://demo3759243.mockable.io"

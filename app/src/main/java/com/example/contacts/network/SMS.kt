@@ -1,6 +1,6 @@
 package com.example.contacts.network
 
-import com.example.contacts.Constants
+import com.example.contacts.utils.Constants
 import com.example.contacts.model.SmsResponse
 import io.reactivex.Observable
 import retrofit2.http.POST

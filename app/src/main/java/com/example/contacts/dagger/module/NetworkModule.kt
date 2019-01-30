@@ -1,7 +1,7 @@
 package com.example.contacts.dagger.module
 
 import com.example.contacts.ApiCaller
-import com.example.contacts.Constants
+import com.example.contacts.utils.Constants
 import com.example.contacts.network.Client
 import com.example.contacts.network.SMS
 import dagger.Module
