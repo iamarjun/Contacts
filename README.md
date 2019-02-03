@@ -63,7 +63,7 @@ And finally we have some classes in the root directory namely:
 * [RxJava](https://github.com/ReactiveX/RxJava)
 * [RxAndroid](https://github.com/ReactiveX/Rxandroid)
 
-### Dependecy Injection
+### Dependency Injection
 * [dagger](https://github.com/google/dagger)
 
 ### Misc
